@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://localhost:8888
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: covoiturage_secret_key_must_be_at_least_256_bits_long_for_hs256
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
