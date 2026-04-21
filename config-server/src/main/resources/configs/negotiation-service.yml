@@ -5,9 +5,9 @@ spring:
   application:
     name: negotiation-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/negotiations_db
+    url: jdbc:postgresql://localhost:5499/negotiations_db
     username: postgres
-    password: postgres
+    password: walid
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

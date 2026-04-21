@@ -39,6 +39,15 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/api/payments/**
+        - id: messaging-service-ws
+          uri: lb:ws://messaging-service
+          predicates:
+            - Path=/ws/**
+
+        - id: messaging-service
+          uri: lb://messaging-service
+          predicates:
+            - Path=/api/messages/**
       globalcors:
         cors-configurations:
           '[/**]':

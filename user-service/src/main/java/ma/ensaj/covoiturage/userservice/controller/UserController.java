@@ -3,6 +3,7 @@ package ma.ensaj.covoiturage.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import ma.ensaj.covoiturage.userservice.dto.request.UpdateProfileRequest;
+import ma.ensaj.covoiturage.userservice.dto.request.UserRatingUpdateRequest;
 import ma.ensaj.covoiturage.userservice.dto.response.UserResponse;
 import ma.ensaj.covoiturage.userservice.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,13 @@ public class UserController {
             @PathVariable UUID id,
             @RequestBody UpdateProfileRequest request) {
         return ResponseEntity.ok(userService.updateProfile(id, request));
+    }
+
+    @PatchMapping("/{id}/rating")
+    public ResponseEntity<Void> updateRating(
+            @PathVariable UUID id,
+            @RequestBody UserRatingUpdateRequest request) {
+        userService.updateRating(id, request);
+        return ResponseEntity.ok().build();
     }
 }

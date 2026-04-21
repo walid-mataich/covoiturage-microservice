@@ -3,6 +3,7 @@ package ma.ensaj.covoiturage.userservice.service;
 
 import lombok.RequiredArgsConstructor;
 import ma.ensaj.covoiturage.userservice.dto.request.UpdateProfileRequest;
+import ma.ensaj.covoiturage.userservice.dto.request.UserRatingUpdateRequest;
 import ma.ensaj.covoiturage.userservice.dto.response.UserResponse;
 import ma.ensaj.covoiturage.userservice.entity.User;
 import ma.ensaj.covoiturage.userservice.repository.UserRepository;
@@ -65,5 +66,20 @@ public class UserService {
                 .vehicleSeats(user.getVehicleSeats())
                 .createdAt(user.getCreatedAt())
                 .build();
+    }
+
+    public void updateRating(UUID id, UserRatingUpdateRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Utilisateur non trouvé"));
+
+        user.setAverageRating(request.getAverageRating());
+        user.setTotalRatings(request.getTotalRatings());
+        userRepository.save(user);
+
+        System.out.println("=== Rating mis à jour ===");
+        System.out.println("userId        : " + id);
+        System.out.println("averageRating : " + request.getAverageRating());
+        System.out.println("totalRatings  : " + request.getTotalRatings());
     }
 }

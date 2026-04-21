@@ -5,9 +5,9 @@ spring:
   application:
     name: trip-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/trips_db
+    url: jdbc:postgresql://localhost:5499/trips_db
     username: postgres
-    password: postgres
+    password: walid
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

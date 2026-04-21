@@ -1,7 +1,5 @@
 package ma.ensaj.covoiturage.userservice.config;
 
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
@@ -32,8 +31,13 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/actuator/**").permitAll()
-                        .anyRequest().authenticated()
+                        // Auth endpoints — publics
+                        .requestMatchers("/api/auth/**").permitAll()
+                        // Actuator — public
+                        .requestMatchers("/actuator/**").permitAll()
+                        // Tout le reste — le Gateway a déjà vérifié le JWT
+                        // les headers X-User-Id / X-User-Role sont injectés par le Gateway
+                        .anyRequest().permitAll()
                 )
                 .authenticationProvider(authenticationProvider());
 
