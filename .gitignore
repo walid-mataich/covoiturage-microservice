@@ -37,3 +37,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Firebase Credentials ###
+# Ignorer les clés privées Firebase / Service Account
+*firebase*.json
+/notification-service/src/main/firebase-service-account.json
+firebase-service-account.json
+*-adminsdk-*.json

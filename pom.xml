@@ -21,7 +21,8 @@
         <module>negotiation-service</module>
         <module>rating-service</module>
         <module>messaging-service</module>
-        <!--        <module>eureka-server</module>-->
+        <module>notification-service</module>
+        <!--        <module>eureka-server</module> -->
 <!--        <module>api-gateway</module>-->
 <!--        <module>user-service</module>-->
 <!--        <module>trip-service</module>-->

@@ -1,6 +1,7 @@
 package ma.ensaj.covoiturage.messagingservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import ma.ensaj.covoiturage.messagingservice.dto.request.LocationUpdate;
 import ma.ensaj.covoiturage.messagingservice.dto.request.MessageRequest;
 import ma.ensaj.covoiturage.messagingservice.dto.response.MessageResponse;
 import ma.ensaj.covoiturage.messagingservice.service.MessageService;
@@ -10,6 +11,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.util.UUID;
 
 @Controller
@@ -42,6 +44,21 @@ public class ChatController {
                 senderId,
                 "/queue/messages/sent",
                 saved
+        );
+    }
+
+
+    // Driver envoie sa position
+    @MessageMapping("/location")
+    public void updateLocation(
+            @Payload LocationUpdate location,
+            Principal principal) {
+
+        // Envoyer la position au passager concerné
+        messagingTemplate.convertAndSendToUser(
+                location.getPassengerId().toString(),
+                "/queue/driver-location",
+                location
         );
     }
 }
